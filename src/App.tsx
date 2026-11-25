@@ -10,18 +10,21 @@ const products = [
     name: "Fornecedor de impulsos",
     description: "Solicite seu fornecedor preenchendo o ticket.",
     price: "R$ 1,99",
+    discord: "https://discord.gg/Matf8HRCy",
   },
   {
     category: "CONTAS NITRADAS",
     name: "Fornecedor de contas nitradas",
     description: "Solicite seu fornecedor preenchendo o ticket.",
     price: "R$ 2,20",
+    discord: "https://discord.gg/Matf8HRCy",
   },
   {
     category: "MEMBROS",
     name: "Fornecedor de membros",
     description: "Solicite seu fornecedor preenchendo o ticket.",
     price: "R$ 1,00",
+    discord: "https://discord.gg/Hrn8CfRwa",
   },
 ];
 
@@ -30,17 +33,34 @@ export default function App() {
   const [page, setPage] = useState("Início");
   const [ticket, setTicket] = useState("");
   const [message, setMessage] = useState("");
+  const [selectedProduct, setSelectedProduct] =
+    useState<(typeof products)[number] | null>(null);
 
-  const categories = ["TODOS", "IMPULSOS", "CONTAS NITRADAS", "MEMBROS"];
+  const categories = [
+    "TODOS",
+    "IMPULSOS",
+    "CONTAS NITRADAS",
+    "MEMBROS",
+  ];
 
   const filteredProducts =
     category === "TODOS"
       ? products
       : products.filter((product) => product.category === category);
 
-  async function copyPix() {
-    await navigator.clipboard.writeText(pix);
-    setMessage("Chave PIX copiada!");
+  async function copyText(text: string, success: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      setMessage(success);
+    } catch {
+      setMessage("Não foi possível copiar. Copie manualmente.");
+    }
+  }
+
+  function buyProduct(product: (typeof products)[number]) {
+    setSelectedProduct(product);
+    setMessage("");
+    setPage("Pagamento");
   }
 
   return (
@@ -87,8 +107,8 @@ export default function App() {
                     <h3>{product.name}</h3>
                     <p>{product.description}</p>
                     <h2>{product.price}</h2>
-                    <button onClick={() => setPage("Ticket")}>
-                      COMPRE FORN.
+                    <button onClick={() => buyProduct(product)}>
+                      COMPRAR
                     </button>
                   </article>
                 ))}
@@ -99,17 +119,102 @@ export default function App() {
               <h2>Pagamento via PIX</h2>
               <p>Chave PIX:</p>
               <div className="pix-key">{pix}</div>
-              <button onClick={copyPix}>COPIAR CHAVE PIX</button>
+              <button
+                onClick={() => copyText(pix, "Chave PIX copiada!")}
+              >
+                COPIAR CHAVE PIX
+              </button>
               <p>{message}</p>
             </section>
           </>
+        )}
+
+        {page === "Pagamento" && selectedProduct && (
+          <section className="content-section">
+            <h1>FINALIZAR COMPRA</h1>
+            <h2>{selectedProduct.name}</h2>
+            <h2>{selectedProduct.price}</h2>
+            <p>Faça o pagamento utilizando a chave PIX abaixo:</p>
+            <div className="pix-key">{pix}</div>
+            <button
+              onClick={() => copyText(pix, "Chave PIX copiada!")}
+            >
+              COPIAR CHAVE PIX
+            </button>
+            <p>{message}</p>
+            <p>Após o pagamento, aguarde a confirmação do sistema.</p>
+            <button onClick={() => setPage("Prévia final")}>
+              VER PRÉVIA DA TELA FINAL
+            </button>
+            <p>
+              <small>
+                Demonstração: este botão não confirma pagamentos.
+              </small>
+            </p>
+            <button onClick={() => setPage("Início")}>
+              VOLTAR À LOJA
+            </button>
+          </section>
+        )}
+
+        {page === "Prévia final" && selectedProduct && (
+          <section className="content-section">
+            <h1>COMPRA FINALIZADA</h1>
+            <h2>🎉 PAGAMENTO APROVADO!</h2>
+            <p>Esta é uma demonstração da tela final.</p>
+
+            <h3>{selectedProduct.name}</h3>
+            <h2>{selectedProduct.price}</h2>
+
+            <h2>🎮 ACESSE SEU SERVIDOR!</h2>
+            <p>Seu convite está disponível abaixo:</p>
+
+            <div className="pix-key">
+              {selectedProduct.discord}
+            </div>
+
+            <button
+              onClick={() =>
+                copyText(
+                  selectedProduct.discord,
+                  "Convite copiado!"
+                )
+              }
+            >
+              COPIAR CONVITE
+            </button>
+
+            <button
+              onClick={() =>
+                window.open(selectedProduct.discord, "_blank")
+              }
+            >
+              ENTRAR NO SERVIDOR
+            </button>
+
+            <p>{message}</p>
+            <p>Obrigado pela compra! ❤️</p>
+
+            <button onClick={() => setPage("Início")}>
+              VOLTAR À LOJA
+            </button>
+
+            <p>
+              <small>
+                PRÉVIA: o pagamento ainda não foi verificado.
+              </small>
+            </p>
+          </section>
         )}
 
         {page === "Ticket" && (
           <section className="content-section">
             <h1>ABRIR TICKET</h1>
             <p>Informe o produto que deseja solicitar.</p>
-            <select value={ticket} onChange={(e) => setTicket(e.target.value)}>
+            <select
+              value={ticket}
+              onChange={(e) => setTicket(e.target.value)}
+            >
               <option value="">Escolha um produto</option>
               {products.map((product) => (
                 <option key={product.category} value={product.name}>
@@ -125,7 +230,10 @@ export default function App() {
         {page === "Histórico" && (
           <section className="content-section">
             <h1>HISTÓRICO DE COMPRAS</h1>
-            <p>O histórico privado de pedidos será conectado ao sistema de administração.</p>
+            <p>
+              O histórico de pedidos ainda precisa ser conectado
+              a um servidor seguro.
+            </p>
           </section>
         )}
       </main>
