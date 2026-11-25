@@ -1,159 +1,197 @@
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  background: #090909;
-  color: white;
+  margin: 0;
+  background: #101114;
+  color: #fff;
   font-family: Arial, sans-serif;
 }
 
-#root {
-  width: 100%;
-  min-height: 100vh;
+button {
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
 }
 
-.loja {
-  min-height: 100vh;
+.header {
+  background: #18191e;
+  padding: 22px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-bottom: 1px solid #303138;
 }
 
-.topo {
-  background: #111;
-  border-bottom: 2px solid #e50914;
-  padding: 25px 15px;
-  text-align: center;
+.header h2 {
+  color: #ffd43b;
+  margin: 0;
 }
 
-.topo h1 {
-  color: #ff2020;
-  font-size: 28px;
-  font-weight: 900;
+.header nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.header nav button {
+  background: transparent;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.header nav button:hover {
+  background: #303138;
+  color: #ffd43b;
 }
 
 main {
-  max-width: 1100px;
+  max-width: 1150px;
   margin: auto;
-  padding: 45px 20px;
+  padding: 30px 20px;
 }
 
-.produtos {
+.banner {
+  background: linear-gradient(135deg, #25252c, #17171c);
+  border: 1px solid #393942;
+  border-radius: 16px;
+  padding: 55px 20px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.banner h1 {
+  color: #ffd43b;
+  font-size: 32px;
+}
+
+.banner p,
+.products > p {
+  color: #b9b9c2;
+}
+
+.products {
   text-align: center;
 }
 
-.produtos h2 {
-  font-size: 30px;
-  margin-bottom: 12px;
+.products > h2,
+.content-section h1 {
+  color: #ffd43b;
 }
 
-.produtos > p {
-  color: #aaa;
-  margin-bottom: 28px;
-}
-
-.categorias {
+.categories {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 35px;
+  margin: 25px 0;
 }
 
-.categorias button {
-  background: #181818;
+.categories button {
+  background: #24252b;
   color: white;
-  border: 1px solid #333;
   padding: 12px 18px;
   border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
 }
 
-.categorias button:hover,
-.categorias button.ativo {
-  background: #d90000;
-  border-color: #d90000;
+.categories button.active,
+.categories button:hover {
+  background: #ffd43b;
+  color: #171717;
 }
 
-.lista {
+.product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 20px;
 }
 
-.produto {
-  background: #151515;
-  border: 1px solid #303030;
+.product-card {
+  background: #1c1d23;
+  border: 1px solid #34353d;
   border-radius: 14px;
-  padding: 28px 20px;
-  text-align: left;
-  transition: 0.2s;
+  padding: 25px 20px;
+  text-align: center;
 }
 
-.produto:hover {
-  border-color: #e50914;
-  transform: translateY(-4px);
-}
-
-.categoria {
-  color: #ff3434;
+.product-card span {
+  color: #ffd43b;
   font-size: 12px;
   font-weight: bold;
-  letter-spacing: 1px;
 }
 
-.produto h3 {
-  font-size: 21px;
-  margin: 15px 0 10px;
+.product-card h3 {
+  margin: 18px 0 10px;
 }
 
-.produto p {
-  color: #aaa;
-  line-height: 1.5;
-  min-height: 45px;
+.product-card p {
+  color: #b9b9c2;
+  min-height: 40px;
 }
 
-.produto strong {
-  display: block;
-  color: #fff;
-  font-size: 24px;
-  margin: 20px 0;
+.product-card h2 {
+  color: #ffd43b;
 }
 
-.comprar {
-  width: 100%;
-  background: #df1010;
-  color: white;
-  border: none;
-  padding: 14px;
+.product-card button,
+.pix-section button {
+  background: #ffd43b;
+  color: #171717;
+  padding: 13px 20px;
   border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
-.comprar:hover {
-  background: #ff2929;
+.pix-section,
+.content-section {
+  background: #1c1d23;
+  border: 1px solid #34353d;
+  border-radius: 14px;
+  padding: 30px 20px;
+  margin-top: 35px;
+  text-align: center;
+}
+
+.pix-section h2 {
+  color: #ffd43b;
+}
+
+.pix-key {
+  background: #101114;
+  padding: 15px;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+  margin: 15px 0;
+}
+
+.content-section select {
+  padding: 12px;
+  border-radius: 8px;
+  max-width: 100%;
 }
 
 footer {
   text-align: center;
-  color: #777;
-  border-top: 1px solid #292929;
-  padding: 25px;
+  color: #888;
+  padding: 30px 15px;
+  font-size: 12px;
 }
 
 @media (max-width: 600px) {
-  .topo h1 {
-    font-size: 23px;
+  .header {
+    justify-content: center;
+    text-align: center;
   }
 
-  main {
-    padding: 30px 15px;
+  .header nav {
+    justify-content: center;
   }
 
-  .produtos h2 {
-    font-size: 25px;
+  .banner h1 {
+    font-size: 24px;
   }
 }
