@@ -36,12 +36,7 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] =
     useState<(typeof products)[number] | null>(null);
 
-  const categories = [
-    "TODOS",
-    "IMPULSOS",
-    "CONTAS NITRADAS",
-    "MEMBROS",
-  ];
+  const categories = ["TODOS", "IMPULSOS", "CONTAS NITRADAS", "MEMBROS"];
 
   const filteredProducts =
     category === "TODOS"
@@ -87,7 +82,6 @@ export default function App() {
             <section className="products">
               <h2>NOSSOS PRODUTOS</h2>
               <p>Escolha uma categoria e encontre o que procura.</p>
-
               <div className="categories">
                 {categories.map((item) => (
                   <button
@@ -119,9 +113,7 @@ export default function App() {
               <h2>Pagamento via PIX</h2>
               <p>Chave PIX:</p>
               <div className="pix-key">{pix}</div>
-              <button
-                onClick={() => copyText(pix, "Chave PIX copiada!")}
-              >
+              <button onClick={() => copyText(pix, "Chave PIX copiada!")}>
                 COPIAR CHAVE PIX
               </button>
               <p>{message}</p>
@@ -136,9 +128,7 @@ export default function App() {
             <h2>{selectedProduct.price}</h2>
             <p>Faça o pagamento utilizando a chave PIX abaixo:</p>
             <div className="pix-key">{pix}</div>
-            <button
-              onClick={() => copyText(pix, "Chave PIX copiada!")}
-            >
+            <button onClick={() => copyText(pix, "Chave PIX copiada!")}>
               COPIAR CHAVE PIX
             </button>
             <p>{message}</p>
@@ -146,64 +136,35 @@ export default function App() {
             <button onClick={() => setPage("Prévia final")}>
               VER PRÉVIA DA TELA FINAL
             </button>
-            <p>
-              <small>
-                Demonstração: este botão não confirma pagamentos.
-              </small>
-            </p>
-            <button onClick={() => setPage("Início")}>
-              VOLTAR À LOJA
-            </button>
+            <p><small>Esta demonstração não confirma pagamentos.</small></p>
+            <button onClick={() => setPage("Início")}>VOLTAR À LOJA</button>
           </section>
         )}
 
         {page === "Prévia final" && selectedProduct && (
           <section className="content-section">
             <h1>COMPRA FINALIZADA</h1>
-            <h2>🎉 PAGAMENTO APROVADO!</h2>
+            <h2>PAGAMENTO APROVADO!</h2>
             <p>Esta é uma demonstração da tela final.</p>
-
             <h3>{selectedProduct.name}</h3>
             <h2>{selectedProduct.price}</h2>
-
-            <h2>🎮 ACESSE SEU SERVIDOR!</h2>
+            <h2>ACESSE SEU SERVIDOR!</h2>
             <p>Seu convite está disponível abaixo:</p>
-
-            <div className="pix-key">
-              {selectedProduct.discord}
-            </div>
-
+            <div className="pix-key">{selectedProduct.discord}</div>
             <button
-              onClick={() =>
-                copyText(
-                  selectedProduct.discord,
-                  "Convite copiado!"
-                )
-              }
+              onClick={() => copyText(selectedProduct.discord, "Convite copiado!")}
             >
               COPIAR CONVITE
             </button>
-
             <button
-              onClick={() =>
-                window.open(selectedProduct.discord, "_blank")
-              }
+              onClick={() => window.open(selectedProduct.discord, "_blank")}
             >
               ENTRAR NO SERVIDOR
             </button>
-
             <p>{message}</p>
-            <p>Obrigado pela compra! ❤️</p>
-
-            <button onClick={() => setPage("Início")}>
-              VOLTAR À LOJA
-            </button>
-
-            <p>
-              <small>
-                PRÉVIA: o pagamento ainda não foi verificado.
-              </small>
-            </p>
+            <p>Obrigado pela compra!</p>
+            <button onClick={() => setPage("Início")}>VOLTAR À LOJA</button>
+            <p><small>PRÉVIA: o pagamento ainda não foi verificado.</small></p>
           </section>
         )}
 
@@ -211,10 +172,7 @@ export default function App() {
           <section className="content-section">
             <h1>ABRIR TICKET</h1>
             <p>Informe o produto que deseja solicitar.</p>
-            <select
-              value={ticket}
-              onChange={(e) => setTicket(e.target.value)}
-            >
+            <select value={ticket} onChange={(e) => setTicket(e.target.value)}>
               <option value="">Escolha um produto</option>
               {products.map((product) => (
                 <option key={product.category} value={product.name}>
@@ -230,10 +188,7 @@ export default function App() {
         {page === "Histórico" && (
           <section className="content-section">
             <h1>HISTÓRICO DE COMPRAS</h1>
-            <p>
-              O histórico de pedidos ainda precisa ser conectado
-              a um servidor seguro.
-            </p>
+            <p>O histórico precisa ser conectado a um servidor seguro.</p>
           </section>
         )}
       </main>
@@ -244,4 +199,5 @@ export default function App() {
     </div>
   );
 }
+
 
